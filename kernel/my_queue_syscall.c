@@ -8,6 +8,16 @@ int max_size = 0;
 int *queue = 0;
 int size = 0;
 
+
+void print_queue(void)
+{
+    int i = 0;
+    while (i < size) {
+        printk(KERN_CRIT "Queue: %d\n", queue[i]);
+        i++;
+    }
+}
+
 asmlinkage void sys_my_enqueue(int n) 
 {
     if (max_size == 0) {
@@ -16,7 +26,7 @@ asmlinkage void sys_my_enqueue(int n)
     }
 
     if (size + 1 > max_size) {
-        max_size = max_size * 1.5;
+        max_size = (int) (max_size * 1.5);
         int *new_queue = vmalloc(sizeof(int) * max_size);
         int i = 0;
         while (i < size) {
@@ -50,13 +60,4 @@ asmlinkage int sys_my_dequeue(void)
     print_queue();
     
     return first;
-}
-
-void print_queue(void)
-{
-    int i = 0;
-    while (i < size) {
-        printk(KERN_CRIT "Queue: %d\n", queue[i]);
-        i++;
-    }
 }
