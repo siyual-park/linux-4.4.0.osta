@@ -11,9 +11,10 @@ int size = 0;
 
 void print_queue(void)
 {
+    printk(KERN_CRIT "Queue:");
     int i = 0;
     while (i < size) {
-        printk(KERN_CRIT "Queue: %d\n", queue[i]);
+        printk(KERN_CRIT " %d", queue[i]);
         i++;
     }
 }
