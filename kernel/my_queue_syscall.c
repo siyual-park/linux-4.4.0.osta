@@ -4,12 +4,17 @@
 
 #define MY_QUEUE_SYSCALL_DEFAULT_QUEUE 512
 
-int max_size = MY_QUEUE_SYSCALL_DEFAULT_QUEUE;
-int *queue = vmalloc(sizeof(int) * max_size);
+int max_size = 0;
+int *queue = 0;
 int size = 0;
 
 asmlinkage void sys_my_enqueue(int n) 
 {
+    if (max_size == 0) {
+        max_size = MY_QUEUE_SYSCALL_DEFAULT_QUEUE;
+        queue = vmalloc(sizeof(int) * max_size);
+    }
+
     if (size + 1 > max_size) {
         max_size = max_size * 1.5;
         int *new_queue = vmalloc(sizeof(int) * max_size);
@@ -47,7 +52,7 @@ asmlinkage int sys_my_dequeue(void)
     return first;
 }
 
-void print_queue()
+void print_queue(void)
 {
     int i = 0;
     while (i < size) {
