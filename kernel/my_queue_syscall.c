@@ -26,7 +26,7 @@ asmlinkage void sys_my_enqueue(int n)
     }
 
     if (size + 1 > max_size) {
-        max_size = (int) (max_size * 1.5);
+        max_size = (int) (max_size * 2);
         int *new_queue = vmalloc(sizeof(int) * max_size);
         int i = 0;
         while (i < size) {
