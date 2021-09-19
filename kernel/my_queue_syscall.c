@@ -13,15 +13,17 @@ asmlinkage void sys_my_enqueue(int n)
     if (size + 1 > max_size) {
         max_size = max_size * 1.5;
         int *new_queue = vmalloc(sizeof(int) * max_size);
-        for (int i = 0; i < size; i++) {
+        int i = 0;
+        while (i < size) {
             new_queue[i] = queue[i];
+            i++;
         }
         vfree(queue);
         queue = new_queue;
     }
 
     queue[size++] = n;
-    printk(KERN_CRIT, "Enqueue: %d\n", n);
+    printk(KERN_CRIT "Enqueue: %d\n", n);
     print_queue();
 }
 
@@ -32,12 +34,14 @@ asmlinkage int sys_my_dequeue(void)
     }
 
     int first = queue[0];
-    for (int i = 0; i < size - 1; i++) {
+    int i = 0;
+    while (i < size - 1) {
         queue[i] = queue[i + 1];
+        i++;
     }
     size--;
 
-    printk(KERN_CRIT, "Dnqueue: %d\n", first);
+    printk(KERN_CRIT "Dnqueue: %d\n", first);
     print_queue();
     
     return first;
@@ -45,6 +49,9 @@ asmlinkage int sys_my_dequeue(void)
 
 void print_queue()
 {
-    for (int i = 0; i < size; i++)
-        printk(KERN_CRIT, "Queue: %d\n", queue[i]);
+    int i = 0;
+    while (i < size) {
+        printk(KERN_CRIT "Queue: %d\n", queue[i]);
+        i++;
+    }
 }
