@@ -17,6 +17,7 @@ void print_queue(void)
         printk(KERN_CRIT " %d", queue[i]);
         i++;
     }
+    printk(KERN_CRIT "\n");
 }
 
 asmlinkage void sys_my_enqueue(int n) 
@@ -55,10 +56,8 @@ asmlinkage int sys_my_dequeue(void)
         queue[i] = queue[i + 1];
         i++;
     }
-    printk(KERN_CRIT "size: %d\n", size);
 
     size--;
-    printk(KERN_CRIT "size: %d\n", size);
 
     printk(KERN_CRIT "Dnqueue: %d\n", first);
     print_queue();
