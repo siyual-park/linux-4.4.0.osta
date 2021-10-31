@@ -727,10 +727,8 @@ static void update_curr(struct cfs_rq *cfs_rq)
 
 		if (tsk->pid == faster_PID) {
 			set_user_nice(tsk, -20);
-			set_load_weight(tsk);
 		} else if (tsk->pid == slower_PID) {
 			set_user_nice(tsk, 19);
-			set_load_weight(tsk);
 		}
 	}
 	
