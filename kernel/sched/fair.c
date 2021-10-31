@@ -35,6 +35,9 @@
 
 #include "sched.h"
 
+extern int faster_PID;
+extern int slower_PID;
+
 /*
  * Targeted preemption latency for CPU-bound tasks:
  * (default: 6ms * (1 + ilog(ncpus)), units: nanoseconds)
