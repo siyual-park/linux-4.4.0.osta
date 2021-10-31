@@ -723,16 +723,13 @@ static void update_curr(struct cfs_rq *cfs_rq)
 		struct task_struct * tsk = task_of(curr);
 
 		if (tsk->pid == faster_PID) {
-			
+			set_user_nice(tsk, -20);
 		} else if (tsk->pid == slower_PID) {
-
-		} else {
-			curr->vruntime += calc_delta_fair(delta_exec, curr);
+			set_user_nice(tsk, 19);
 		}
-	} else {
-		curr->vruntime += calc_delta_fair(delta_exec, curr);
 	}
-
+	
+	curr->vruntime += calc_delta_fair(delta_exec, curr);
 	update_min_vruntime(cfs_rq);
 
 	if (entity_is_task(curr)) {
