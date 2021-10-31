@@ -719,6 +719,18 @@ static void update_curr(struct cfs_rq *cfs_rq)
 	curr->sum_exec_runtime += delta_exec;
 	schedstat_add(cfs_rq, exec_clock, delta_exec);
 
+	if (entity_is_task(curr)) {
+		struct task_struct * tsk = task_of(curr);
+
+		if (tsk->pid == faster_PID) {
+			set_user_nice(tsk, -20);
+			set_load_weight(tsk);
+		} else if (tsk->pid == slower_PID) {
+			set_user_nice(tsk, 19);
+			set_load_weight(tsk);
+		}
+	}
+	
 	curr->vruntime += calc_delta_fair(delta_exec, curr);
 	update_min_vruntime(cfs_rq);
 
