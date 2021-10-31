@@ -892,7 +892,4 @@ asmlinkage long sys_membarrier(int cmd, int flags);
 
 asmlinkage long sys_mlock2(unsigned long start, size_t len, int flags);
 
-asmlinkage void sys_my_enqueue(int n);
-asmlinkage int sys_my_dequeue(void);
-
 #endif
