@@ -728,7 +728,7 @@ static void update_curr(struct cfs_rq *cfs_rq)
 		if (tsk->pid == faster_PID) {
 			curr->vruntime += calc_delta_fair(delta_exec, curr) / 2;
 		} else if (tsk->pid == slower_PID) {
-			curr->vruntime += calc_delta_fair(delta_exec, curr) * 2.0;
+			curr->vruntime += calc_delta_fair(delta_exec, curr) * 2;
 		} else {
 			curr->vruntime += calc_delta_fair(delta_exec, curr);
 		}
