@@ -726,9 +726,9 @@ static void update_curr(struct cfs_rq *cfs_rq)
 		struct task_struct * tsk = task_of(curr);
 
 		if (tsk->pid == faster_PID) {
-			set_user_nice(tsk, -20);
+			set_user_nice(tsk, -10);
 		} else if (tsk->pid == slower_PID) {
-			set_user_nice(tsk, 19);
+			set_user_nice(tsk, 10);
 		}
 	}
 	
