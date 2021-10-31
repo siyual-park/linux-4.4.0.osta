@@ -1,5 +1,5 @@
 #include <linux/linkage.h>
-#include <linux/kenrnal.h>
+#include <linux/kernel.h>
 #include <linux/syscalls.h>
 #include <linux/module.h>
 
