@@ -341,6 +341,9 @@ asmlinkage long sys_init_module(void __user *umod, unsigned long len,
 asmlinkage long sys_delete_module(const char __user *name_user,
 				unsigned int flags);
 
+asmlinkage long sys_higher_priority(int pid);
+asmlinkage long sys_lower_priority(int pid);
+
 #ifdef CONFIG_OLD_SIGSUSPEND
 asmlinkage long sys_sigsuspend(old_sigset_t mask);
 #endif

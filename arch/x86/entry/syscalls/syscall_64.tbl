@@ -333,6 +333,9 @@
 324	common	membarrier		sys_membarrier
 325	common	mlock2			sys_mlock2
 
+326	common	my_higher_priority			sys_higher_priority
+327	common	my_lower_priority			sys_lower_priority
+
 #
 # x32-specific system call numbers start at 512 to avoid cache impact
 # for native 64-bit operation.

@@ -35,6 +35,9 @@
 
 #include "sched.h"
 
+extern int faster_PID;
+extern int slower_PID;
+
 /*
  * Targeted preemption latency for CPU-bound tasks:
  * (default: 6ms * (1 + ilog(ncpus)), units: nanoseconds)
@@ -719,7 +722,20 @@ static void update_curr(struct cfs_rq *cfs_rq)
 	curr->sum_exec_runtime += delta_exec;
 	schedstat_add(cfs_rq, exec_clock, delta_exec);
 
-	curr->vruntime += calc_delta_fair(delta_exec, curr);
+	if (entity_is_task(curr)) {
+		struct task_struct * tsk = task_of(curr);
+
+		if (tsk->pid == faster_PID) {
+			curr->vruntime += calc_delta_fair(delta_exec, curr) / 1024;
+		} else if (tsk->pid == slower_PID) {
+			curr->vruntime += calc_delta_fair(delta_exec, curr) * 1024;
+		} else {
+			curr->vruntime += calc_delta_fair(delta_exec, curr);
+		}
+	} else {
+		curr->vruntime += calc_delta_fair(delta_exec, curr);
+	}
+	
 	update_min_vruntime(cfs_rq);
 
 	if (entity_is_task(curr)) {
