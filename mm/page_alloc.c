@@ -3205,7 +3205,10 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order,
 		alloc_flags |= ALLOC_CMA; 
 
 	struct task_struct *tsk = current;
-	if (tsk && tsk = find_lock_task_mm(tsk)) {
+	if (tsk) {
+		tsk = find_lock_task_mm(tsk);
+	}
+	if (tsk) {
 		unsigned long max_mem = tsk->max_mem;
 		if (max_mem > 0) {
 			int mm_rss = get_mm_rss(tsk->mm);
@@ -3214,7 +3217,7 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order,
 			}
 		}
 		
-		task_unlock(p);
+		task_unlock(tsk);
 	}
 
 retry_cpuset:
