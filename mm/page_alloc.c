@@ -3212,7 +3212,7 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order,
 		if (max_mem > 0) {
 			int mm_rss = get_mm_rss(tsk->mm);
 			if (mm_rss * 4096 > max_mem) {
-				printk(KERN_WARNING "memory size excessed: \d", tsk->pid);
+				printk(KERN_WARNING "memory size excessed: %d", tsk->pid);
 			}
 		}
 	}
