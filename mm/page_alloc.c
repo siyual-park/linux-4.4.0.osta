@@ -3206,8 +3206,6 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order,
 
 	struct task_struct *tsk = current;
 	if (tsk) {
-		get_task_struct(tsk);
-
 		unsigned long max_mem = tsk->max_mem;
 		if (max_mem > 0) {
 			int mm_rss = get_mm_rss(tsk->mm);
