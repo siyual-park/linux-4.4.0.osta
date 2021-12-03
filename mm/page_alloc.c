@@ -3204,7 +3204,7 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order,
 	if (IS_ENABLED(CONFIG_CMA) && ac.migratetype == MIGRATE_MOVABLE)
 		alloc_flags |= ALLOC_CMA; 
 
-	struct task_struct *tsk = current();
+	struct task_struct *tsk = current;
 	if (tsk) {
 		get_task_struct(tsk);
 
