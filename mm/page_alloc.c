@@ -60,6 +60,7 @@
 #include <linux/page_ext.h>
 #include <linux/hugetlb.h>
 #include <linux/sched/rt.h>
+#include <linux/sched.h>
 #include <linux/page_owner.h>
 #include <linux/kthread.h>
 
@@ -3201,7 +3202,20 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order,
 		return NULL;
 
 	if (IS_ENABLED(CONFIG_CMA) && ac.migratetype == MIGRATE_MOVABLE)
-		alloc_flags |= ALLOC_CMA;
+		alloc_flags |= ALLOC_CMA; 
+
+	struct task_struct *tsk = current();
+	if (tsk) {
+		get_task_struct(tsk);
+
+		if (tsk->max_mem > 0) {
+			int mm_rss = get_mm_rss(tsk->mm);
+
+			if (mm_rss * 4096 > tsk->max_mem) {
+				printk(KERN_WARNING "memory size excessed: \d", tsk->pid);
+			}
+		}
+	}
 
 retry_cpuset:
 	cpuset_mems_cookie = read_mems_allowed_begin();
