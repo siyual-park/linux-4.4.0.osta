@@ -3205,7 +3205,7 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order,
 		alloc_flags |= ALLOC_CMA; 
 
 	struct task_struct *tsk = current;
-	if (tsk) {
+	if (tsk && tsk = find_lock_task_mm(tsk)) {
 		unsigned long max_mem = tsk->max_mem;
 		if (max_mem > 0) {
 			int mm_rss = get_mm_rss(tsk->mm);
@@ -3213,6 +3213,8 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order,
 				printk(KERN_WARNING "memory size excessed: %d", tsk->pid);
 			}
 		}
+		
+		task_unlock(p);
 	}
 
 retry_cpuset:
