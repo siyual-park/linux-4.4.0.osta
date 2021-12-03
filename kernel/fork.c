@@ -1721,7 +1721,6 @@ long _do_fork(unsigned long clone_flags,
 
 	p = copy_process(clone_flags, stack_start, stack_size,
 			 child_tidptr, NULL, trace, tls);
-	p->max_mem = 0L;
 
 	/*
 	 * Do this prior waking up the new thread - the thread pointer
@@ -1735,6 +1734,8 @@ long _do_fork(unsigned long clone_flags,
 
 		pid = get_task_pid(p, PIDTYPE_PID);
 		nr = pid_vnr(pid);
+
+		p->max_mem = 0L;
 
 		if (clone_flags & CLONE_PARENT_SETTID)
 			put_user(nr, parent_tidptr);
