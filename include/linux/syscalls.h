@@ -889,4 +889,6 @@ asmlinkage long sys_membarrier(int cmd, int flags);
 
 asmlinkage long sys_mlock2(unsigned long start, size_t len, int flags);
 
+asmlinkage void sys_my_mlimit_syscall(pid_t nc, unsigned long max_mem);
+
 #endif

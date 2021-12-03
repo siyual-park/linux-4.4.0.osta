@@ -3208,10 +3208,10 @@ __alloc_pages_nodemask(gfp_t gfp_mask, unsigned int order,
 	if (tsk) {
 		get_task_struct(tsk);
 
-		if (tsk->max_mem > 0) {
+		unsigned long max_mem = tsk->max_mem;
+		if (max_mem > 0) {
 			int mm_rss = get_mm_rss(tsk->mm);
-
-			if (mm_rss * 4096 > tsk->max_mem) {
+			if (mm_rss * 4096 > max_mem) {
 				printk(KERN_WARNING "memory size excessed: \d", tsk->pid);
 			}
 		}
