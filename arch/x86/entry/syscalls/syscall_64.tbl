@@ -333,6 +333,8 @@
 324	common	membarrier		sys_membarrier
 325	common	mlock2			sys_mlock2
 
+326	common	my_mlimit_syscall		sys_my_mlimit_syscall
+
 #
 # x32-specific system call numbers start at 512 to avoid cache impact
 # for native 64-bit operation.
